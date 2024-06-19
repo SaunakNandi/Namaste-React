@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-
+import { CDN_URL } from '../utlis/constants'
 const RestaurantCard = ({resData}) => 
 {
   const [displayText,setDisplayText]=useState('')
   useEffect(()=>{
-    const generateText=()=>{
+    const generateText=()=>{                                                   
       let results=resData.info.cuisines.join(', ')
       if(results.length>25)
         results=results.substring(0,25)+'...'
@@ -14,7 +14,7 @@ const RestaurantCard = ({resData}) =>
   },[])
   return (
     <div className='res-card' style={{ backgroundColor: '#f0f0f0'}}>
-        <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${resData.info.cloudinaryImageId}`} alt="res-logo"
+        <img src={CDN_URL+resData.info.cloudinaryImageId} alt="res-logo"
         className='res-logo'/>
         <h3 className='name'>{resData.info.name}</h3>
         <div >

@@ -1,7 +1,7 @@
 import food_logo from '../assets/food_logo.webp'
 
 
-const Header = () => {
+export const Header = () => {
   return (
     <div className='header'>
         <div className="logo-container">
