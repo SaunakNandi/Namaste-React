@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import food_logo from '../assets/food_logo.webp'
 
 
 export const Header = () => {
+  const [btnname,setBtnname]=useState('login')
   return (
     <div className='header'>
         <div className="logo-container">
@@ -11,8 +13,8 @@ export const Header = () => {
             <ul>
                 <li>Home</li>
                 <li>Cart</li>
-                <li>Login</li>
-                <li>Sign Up</li>
+                <button className='login'
+                onClick={()=>setBtnname(prev=> prev==='login'?'logout':'login')}>{btnname}</button>
             </ul>
         </div>
     </div>

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import RestaurantCard from './RestaurantCard'
 import { resObj } from '../utlis/mock_data'
+import Shimmer from './Shimmer'
 const Body = () => {
   const [listOfRestaurants,setListOfRestaurants]=useState([])
+  const [filteredRestaurant,setFilteredRestaurant]=useState([])
+  const [searchText,setSearchText]=useState("")
 
   useEffect(()=>{
     const fetchData=async()=>{
@@ -10,16 +13,26 @@ const Body = () => {
       const json=await data.json()
       console.log(json.data.cards)
       setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants)
+      setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants)
     }
     fetchData()
   },[])
 
-  // if(listOfRestaurants.length===0)
-  //   return <h1>Loading</h1>
+  // useEffect(()=>{
+  //   setListOfRestaurants(listOfRestaurants.filter((item)=>item.info.name.toLowerCase().includes(searchText.toLowerCase())))
+  // },[searchText])
 
   return (listOfRestaurants.length > 0) ? (
     <div className='body'>
         <div className="filter">
+          <div className="search">
+            <input type="text" className='search-box' value={searchText} 
+            onChange={(e)=>setSearchText(e.target.value)}/>
+            <button onClick={()=>{ 
+              const filtered_result=listOfRestaurants.filter((item)=>item.info.name.toLowerCase().includes(searchText.toLowerCase()))
+              setFilteredRestaurant(filtered_result)
+            }}>Search</button>
+          </div>
           <button className="filter-btn" onClick={()=> {
             const filtered=listOfRestaurants.filter(
               res=>res.info.avgRating>4
@@ -31,14 +44,14 @@ const Body = () => {
         <div className="res-container">
             {/* Restaurant Card */}
             {
-              listOfRestaurants.map((data,i)=> (
+              filteredRestaurant.map((data,i)=> (
                   <RestaurantCard key={data.info.id} resData={data} />
               ))
             }
              
         </div>
     </div>
-  ) : (<h1>Loading...</h1>)
+  ) : <Shimmer/>
 }
 
 export default Body

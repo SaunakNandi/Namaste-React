@@ -12,11 +12,16 @@ const RestaurantCard = ({resData}) =>
     }
     setDisplayText(generateText())
   },[])
+  const truncateText=(name)=>{
+    if(name.length>20)
+      return name.substring(0,20)+'...'
+    return name
+  }
   return (
     <div className='res-card' style={{ backgroundColor: '#f0f0f0'}}>
         <img src={CDN_URL+resData.info.cloudinaryImageId} alt="res-logo"
         className='res-logo'/>
-        <h3 className='name'>{resData.info.name}</h3>
+        <h3 className='name'>{truncateText(resData.info.name)}</h3>
         <div >
         {displayText}
         </div>
