@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import RestaurantCard from './RestaurantCard'
 import Shimmer from './Shimmer'
+import useOnlineStatus from '../utlis/useOnlineStatus'
 const Body = () => {
   const [listOfRestaurants,setListOfRestaurants]=useState([])
   const [filteredRestaurant,setFilteredRestaurant]=useState([])
@@ -19,6 +20,11 @@ const Body = () => {
          
   },[])
 
+  const onlineStatus=useOnlineStatus()
+  if(onlineStatus===false)
+    return <h1>Looks like you're Offline!! Please check you internet connection</h1>
+
+  
   // useEffect(()=>{
   //   setListOfRestaurants(listOfRestaurants.filter((item)=>item.info.name.toLowerCase().includes(searchText.toLowerCase())))
   // },[searchText])
