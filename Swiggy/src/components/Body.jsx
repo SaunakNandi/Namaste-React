@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import RestaurantCard from './RestaurantCard'
-import { resObj } from '../utlis/mock_data'
 import Shimmer from './Shimmer'
 const Body = () => {
   const [listOfRestaurants,setListOfRestaurants]=useState([])
   const [filteredRestaurant,setFilteredRestaurant]=useState([])
+  const [error,setError]=useState()
   const [searchText,setSearchText]=useState("")
 
   useEffect(()=>{
@@ -16,6 +16,7 @@ const Body = () => {
       setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle.restaurants)
     }
     fetchData()
+         
   },[])
 
   // useEffect(()=>{
