@@ -31,25 +31,30 @@ const Body = () => {
 
   return (listOfRestaurants.length > 0) ? (
     <div className='body'>
-        <div className="filter">
-          <div className="search">
-            <input type="text" className='search-box' value={searchText} 
+        <div className="filter flex">
+          <div className="m-4 p-4">
+            <input type="text" className='border border-solid border-black' value={searchText} 
             onChange={(e)=>setSearchText(e.target.value)}/>
-            <button onClick={()=>{ 
+            <button
+            className='p-2 rounded-md bg-green-100 m-4'
+            onClick={()=>{ 
               const filtered_result=listOfRestaurants.filter((item)=>item.info.name.toLowerCase().includes(searchText.toLowerCase()))
               setFilteredRestaurant(filtered_result)
             }}>Search</button>
           </div>
-          <button className="filter-btn" onClick={()=> {
-            const filtered=listOfRestaurants.filter(
-              res=>res.info.avgRating>4
-            )
-            // console.log(filtered)
-            setListOfRestaurants(filtered)
-          }}>Top Rated Restaurants</button>
+          <div className="m-4 p-4">
+            <button className="px-4 py-2 bg-gray-200 rounded" onClick={()=> {
+              const filtered=filteredRestaurant.filter(
+                res=>res.info.avgRating>4
+              )
+              // console.log(filtered)
+              setFilteredRestaurant(filtered)
+            }}>Top Rated Restaurants</button>
+          </div>
         </div>
-        <div className="res-container">
-            {/* Restaurant Card */}
+        <div className="flex flex-wrap">
+        {/* {console.log(listOfRestaurants)}
+        {console.log(filteredRestaurant)} */}
             {
               filteredRestaurant.map((data,i)=> (
                   <RestaurantCard key={data.info.id} resData={data} />
