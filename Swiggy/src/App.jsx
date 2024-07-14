@@ -5,7 +5,8 @@ import Body from './components/Body'
 import { Outlet } from 'react-router-dom'
 import About from './components/About'
 import UserContext from './components/UserContext'
-
+import { Provider } from 'react-redux'
+import appStore from './utlis/appStore'
 
 function App() {
 
@@ -19,13 +20,13 @@ function App() {
 
   },[])
   return (
-    <>
+    <Provider store={appStore}>
       <UserContext.Provider value={{loggedInUser:username, setUserName}}>
         <Header/>
         {/* the outlet will be filled with children according to the path on what page we are */}
         <Outlet/>  
       </UserContext.Provider>
-    </>
+    </Provider>
   )
 }
 

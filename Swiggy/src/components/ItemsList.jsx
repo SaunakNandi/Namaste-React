@@ -1,7 +1,15 @@
 import { CDN_URL_INSIDE_IMAGE } from "../utlis/constants";
+import {addItem} from '../utlis/cartSlice'
+import {useDispatch} from 'react-redux'
 const ItemList=({items})=>{
     // console.log(items)
     
+    const dispatch=useDispatch()
+    const handleAddItem=(name)=>{
+        // Dispatch an action
+        dispatch(addItem(name))
+    }
+
     return (
         <div>
             {
@@ -11,7 +19,8 @@ const ItemList=({items})=>{
                             <img src={CDN_URL_INSIDE_IMAGE+item.card.info.imageId} className="w-28 h-20 rounded-md" alt={item.card.info.name} />
                             <div className="absolute bottom-0 translate-x-[50%] translate-y-[-10%]">
                                 <button className="p-1 bg-red-500 shadow-md 
-                                font-semibold rounded-md">Add +</button>
+                                font-semibold rounded-md"
+                                onClick={()=>handleAddItem(item)}>Add +</button>
                             </div>
                         </div>
                         <div className="">
@@ -20,7 +29,6 @@ const ItemList=({items})=>{
                                 <h2>₹ {item.card.info.price/100 || item.card.info.defaultPrice/100}</h2>
                             </div>
                             <div className="w-2/3">
-
                                 <p className="text-xs">{item.card.info.description}</p>
                             </div>
                         </div>
