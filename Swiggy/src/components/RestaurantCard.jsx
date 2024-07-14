@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CDN_URL } from '../utlis/constants'
 import { Link } from 'react-router-dom'
-const RestaurantCard = ({resData}) => 
+import UserContext from './UserContext'
+const  RestaurantCard = ({resData}) => 
 {
+
+  const {loggedInUser}=useContext(UserContext)
   const [displayText,setDisplayText]=useState('')
   // console.log(resData)
   useEffect(()=>{
@@ -20,7 +23,7 @@ const RestaurantCard = ({resData}) =>
     return name
   }
   return (
-    <Link to={`restaurant/${resData.info.id}`} className='m-4 p-1 w-[250px] h-[360px] ml-7 mt-8 rounded-md hover:bg-gray-400 '>
+    <>
         <img src={CDN_URL+resData.info.cloudinaryImageId} alt="res-logo"
         className='res-logo'/>
         <h3 className='font-semibold py-1'>{truncateText(resData.info.name)}</h3>
@@ -29,8 +32,22 @@ const RestaurantCard = ({resData}) =>
         </div>
         <h4>{resData.info.avgRating}</h4>
         <h4>{resData.info.costForTwo}</h4>
-    </Link>
+        <h4>User: {loggedInUser}</h4>
+    </>
   )
+}
+
+// HOC
+// input - RestaurantCard => RestaunrantCardPromoted
+export const withPromotedLabel=(RestaurantCard)=>{
+  return (props)=>{
+    return (
+      <div>
+        <label className='absolute bg-black text-white m-2 p-2 rounded-lg'>Promoted</label>
+        <RestaurantCard {...props}/>
+      </div>
+    )
+  }
 }
 
 export default RestaurantCard

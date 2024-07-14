@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import food_logo from '../assets/food_logo.webp'
 import { Link } from 'react-router-dom'
 import useOnlineStatus from '../utlis/useOnlineStatus'
+import UserContext from './UserContext'
 
 export const Header = () => {
   const [btnname,setBtnname]=useState('login')
   const onLineStatus=useOnlineStatus()
+  const {loggedInUser}=useContext(UserContext)
+
   return (
     <div className='flex justify-between bg-pink-200 shadow-lg'>
         <div className="logo-container">
@@ -21,6 +24,7 @@ export const Header = () => {
                 <li className='px-4'>Cart</li>
                 <button className='login'
                 onClick={()=>setBtnname(prev=> prev==='login'?'logout':'login')}>{btnname}</button>
+                <li className='px-4 font-bold'>{loggedInUser}</li>
             </ul>
         </div>
     </div>
