@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CDN_URL } from '../utlis/constants'
 import { Link } from 'react-router-dom'
 import UserContext from './UserContext'
+
 const  RestaurantCard = ({resData}) => 
 {
-
   const {loggedInUser}=useContext(UserContext)
   const [displayText,setDisplayText]=useState('')
   // console.log(resData)
   useEffect(()=>{
     const generateText=()=>{                                                   
-      let results=resData.info.cuisines.join(', ')
+      let results=resData.cuisines.join(', ')
       if(results.length>30)
         results=results.substring(0,30)+'...'
       return results
@@ -24,14 +24,14 @@ const  RestaurantCard = ({resData}) =>
   }
   return (
     <>
-        <img src={CDN_URL+resData.info.cloudinaryImageId} alt="res-logo"
+        <img src={CDN_URL+resData.cloudinaryImageId} alt="res-logo"
         className='res-logo'/>
-        <h3 className='font-semibold py-1'>{truncateText(resData.info.name)}</h3>
+        <h3 className='font-semibold py-1'>{truncateText(resData.name)}</h3>
         <div >
         {displayText}
         </div>
-        <h4>{resData.info.avgRating}</h4>
-        <h4>{resData.info.costForTwo}</h4>
+        <h4>{resData.avgRating}</h4>
+        <h4>{resData.costForTwo}</h4>
         <h4>User: {loggedInUser}</h4>
     </>
   )

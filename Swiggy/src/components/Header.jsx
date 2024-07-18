@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import food_logo from '../assets/food_logo.webp'
+import React, { useContext, useState } from 'react'
+import { food_logo } from '../utlis/constants'
 import { Link } from 'react-router-dom'
 import useOnlineStatus from '../utlis/useOnlineStatus'
 import UserContext from './UserContext'
@@ -27,7 +27,7 @@ export const Header = () => {
                 <li className='px-4'><Link to='/grocery'>Grocery</Link></li>
                 <li className='px-4 font-bold text-xl'>
                   <Link to='/cart'>
-                    Cart <sup className='p-2 border border-solid border-orange-500'>{cartItems.length}</sup>
+                    Cart - <sup className='p-2 border border-solid border-orange-500'>{cartItems.length}</sup>
                   </Link> 
                 </li>
                 <button className='login'

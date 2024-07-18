@@ -88,7 +88,7 @@ const Body = () => {
         {filteredRestaurant.map((data, i) => (
           <Link key={data.info.id} to={'/restaurant/'+data.info.id} className='m-4 p-1 w-[250px] h-[360px] ml-7 mt-8 rounded-md hover:bg-gray-400 '>
             {/* if the restaurant is promoted then add a promoted label to it*/
-              data.info?.promoted ? <RestaurantCardPromoted resData={data} />:<RestaurantCard resData={data} />
+              data.info?.promoted ? <RestaurantCardPromoted resData={data.info} />:<RestaurantCard resData={data.info} />
             }
           </Link>
         ))}
