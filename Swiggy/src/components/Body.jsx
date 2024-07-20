@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utlis/useOnlineStatus";
@@ -8,7 +8,7 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   console.log("Show list of restaurants ", listOfRestaurants);
   useEffect(() => {
@@ -29,14 +29,13 @@ const Body = () => {
   }, []);
 
   const onlineStatus = useOnlineStatus();
-  if (onlineStatus === false)
-  {
+  if (onlineStatus === false) {
     return (
       <h1>Looks like you're Offline!! Please check you internet connection</h1>
     );
   }
 
-  const {loggedInUser,setUserName}=useContext(UserContext)
+  const { loggedInUser, setUserName } = useContext(UserContext);
   // useEffect(()=>{
   //   setListOfRestaurants(listOfRestaurants.filter((item)=>item.info.name.toLowerCase().includes(searchText.toLowerCase())))
   // },[searchText])
@@ -47,6 +46,7 @@ const Body = () => {
         <div className="m-4 p-4">
           <input
             type="text"
+            data-testid="searchInput"
             className="border border-solid border-black"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -79,16 +79,28 @@ const Body = () => {
         </div>
         <div className="m-4 p-4 flex items-center">
           <label htmlFor="">User Name</label>
-          <input type="text" className="border border-black p-1"
-          value={loggedInUser}
-          onChange={(e)=> setUserName(e.target.value)}/>
+          <input
+            type="text"
+            className="border border-black p-1"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
         </div>
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurant.map((data, i) => (
-          <Link key={data.info.id} to={'/restaurant/'+data.info.id} className='m-4 p-1 w-[250px] h-[360px] ml-7 mt-8 rounded-md hover:bg-gray-400 '>
-            {/* if the restaurant is promoted then add a promoted label to it*/
-              data.info?.promoted ? <RestaurantCardPromoted resData={data.info} />:<RestaurantCard resData={data.info} />
+          <Link
+            key={data.info.id}
+            to={"/restaurant/" + data.info.id}
+            className="m-4 p-1 w-[250px] h-[360px] ml-7 mt-8 rounded-md hover:bg-gray-400 "
+          >
+            {
+              /* if the restaurant is promoted then add a promoted label to it*/
+              data.info?.promoted ? (
+                <RestaurantCardPromoted resData={data.info} />
+              ) : (
+                <RestaurantCard resData={data.info} />
+              )
             }
           </Link>
         ))}
