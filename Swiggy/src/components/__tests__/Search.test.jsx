@@ -1,7 +1,6 @@
 import React from "react";
 import Body from "../Body";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import RestaurantCard from "../RestaurantCard";
 import MOCK_DATA from "../mocks/mockRestroListData.json";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
@@ -39,7 +38,7 @@ global.fetch = jest.fn(() => {
 //   expect(cardsAfterSearch.length).toBe(1);
 // });
 
-it("Shoud render the body component with search field and cards before and after clicking search", async () => {
+it("Should render the body component with search field and cards before and after clicking search", async () => {
   await act(async () =>
     render(
       // If you wiill not wrap Body with <BrowserRouter> then you will get an error for <Link>

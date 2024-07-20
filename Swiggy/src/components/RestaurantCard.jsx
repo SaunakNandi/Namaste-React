@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CDN_URL } from "../utlis/constants";
-import { Link } from "react-router-dom";
 import UserContext from "./UserContext";
 
 const RestaurantCard = ({ resData }) => {
