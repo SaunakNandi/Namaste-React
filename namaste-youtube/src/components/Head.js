@@ -8,6 +8,9 @@ import { toggleMenu } from '../utlils/appSlice'
 import {YOUTUBE_SEARCH_API} from '../utlils/constants'
 import { cacheResults } from '../utlils/searchSlice'
 
+
+// I
+
 const Head = () => 
 {
     const [searchQuery,setSearchQuery]=useState("")
@@ -21,10 +24,14 @@ const Head = () =>
     }
     useEffect(()=>{
 
+        // Implementing Debouncing
+
         // make an api call after every key press
         // but if the difference between 2 API calls is <200ms decline the API call
 
         const timer=setTimeout(()=>{
+
+            // Implementing Cache concept
             if(searchCache[searchQuery])
             {
                 setSuggestions(searchCache[searchQuery])

@@ -71,9 +71,11 @@ const commentsData = [
       text: "Lorem ipsum dolor sit amet, consectetur adip",
       replies: [],
     },
-  ];
+];
 
 const Comment=({data})=>{
+  console.log(data)
+  // replies is an array of object
   const {name,text,replies}=data
   return(
     <div className='flex'>
@@ -89,12 +91,13 @@ const Comment=({data})=>{
 // Using recurssion to perform n-level nesting
 
 const CommentsList=({comments})=>{
+  // console.log(comments)
   return (
     <>
       {
         comments.map((comment,index)=>(
-          <div>
-            <Comment key={index} data={comment}/>
+          <div key={index}>
+            <Comment data={comment}/>
             <div className='pl-5 ml-5 border border-l-black'>
               {
                 comment.replies && <CommentsList comments={comment.replies}/>
