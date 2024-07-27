@@ -6,6 +6,7 @@ import store from './utlils/store';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainContainer from './components/MainContainer';
 import WatchPage from './components/WatchPage';
+import UseRef from './components/use_Ref';
 
 const AppRouter=createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const AppRouter=createBrowserRouter([
       {
         path:'/watch',
         element:<WatchPage/>
+      },
+      {
+        path:'/demo',
+        element:<UseRef/>
       }
     ]
   }

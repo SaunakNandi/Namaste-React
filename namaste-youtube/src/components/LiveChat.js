@@ -18,7 +18,7 @@ const LiveChat = () => {
         message:faker.lorem.sentence()
       }))
     },1400)
-    console.log(chat)
+    // console.log(chat)
     return ()=> clearInterval(i)
   })
   return (
@@ -41,8 +41,8 @@ const LiveChat = () => {
           message:liveMessage
         }))
         setMessage('')
-      }} 
-      className="w-full p-2 ml-2 border border-black">
+        }} 
+        className="w-full p-2 ml-2 border border-black">
         <input className="w-3/4 border border-black p-1" type="text"
         value={liveMessage} 
         onChange={(e)=>setMessage(e.target.value)}/>

@@ -19,7 +19,7 @@ const Head = () =>
     const searchCache=useSelector(store=> store.search)
     const dispatch=useDispatch()
     const toggleMenuHandler=()=>{
-        console.log('called')
+        // console.log('called')
         dispatch(toggleMenu())
     }
     useEffect(()=>{
