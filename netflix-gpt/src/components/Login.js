@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Header from './Header'
-
+import { checkValidData } from '../utils/validate'
 const Login = () => {
 
     const [isSignInForm,setIsSignInForm]=useState(true)
+    const [errorMessage,setErrorMessage]=useState(null)
+    const email=useRef(null)
+    const password=useRef(null)
+    const name=useRef(null)
+    const handleButtonClick=()=>{
+        // validate the form data
 
+        const checkMessage=checkValidData(email.current.value,password.current.value)
+        setErrorMessage(checkMessage)
+    }
     
     return (
         <div className='relative w-full'>
@@ -14,16 +23,24 @@ const Login = () => {
         backgroundPosition: `top`,backgroundSize: `cover`,backgroundRepeat:'no-repeat'}}>
                 
                 <form className='absolute p-12 bg-black left-0 right-0 mx-auto w-1/4 top-[15%] flex flex-col
-                text-white bg-opacity-70'>
+                text-white bg-opacity-70'
+                onSubmit={(e)=>{
+                    e.preventDefault()
+                }}>
                     <h2 className='text-2xl font-semibold mb-10'>{
                         isSignInForm ? 'Sign In' : 'Sign Up'
                     }</h2>
                     {
-                        !isSignInForm && <input type="text" placeholder='username' className='p-2 m-2 bg-black bg-opacity-50'/>
+                        !isSignInForm && <input type="text"
+                        ref={name} placeholder='username' className='p-2 m-2 bg-black bg-opacity-50'/>
                     }
-                    <input type="email" placeholder='email' className='p-2 m-2 bg-black bg-opacity-50'/>
-                    <input type="password" placeholder='password' className='p-2 m-2 bg-black bg-opacity-50'/>
-                    <button className="p-3 m-2 text-xl bg-red-500 text-white rounded-sm">{
+                    <input type="email" placeholder='email' className='p-2 m-2 bg-black bg-opacity-50'
+                    ref={email}/>
+                    <input type="password" placeholder='password' className='p-2 m-2 bg-black bg-opacity-50'
+                    ref={password}/>
+                    <p className='text-red-500'>{errorMessage && errorMessage}</p>
+                    <button className="p-3 m-2 text-xl bg-red-500 text-white rounded-sm"
+                    onClick={handleButtonClick}>{
                         isSignInForm ? 'Sign In' : 'Sign Up'
                     }</button>
                     <p className="py-4">

@@ -7,6 +7,7 @@
 
 - Login/Sign up
     - Sign in/ Sign up form
+    - Form validation
     - Redirect to browse page
 
 - Browse
