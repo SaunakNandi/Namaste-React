@@ -5,5 +5,5 @@ export function checkValidData(email,password){
     if(!isEmailValid) return 'Email ID is not valid'
     if(!isPasswordValid) return 'Password is not valid'
 
-    return null
+    return ''
 }

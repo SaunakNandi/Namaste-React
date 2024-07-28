@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidData } from '../utils/validate'
+import { auth } from '../utils/firebase'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
     const [isSignInForm,setIsSignInForm]=useState(true)
@@ -8,11 +11,49 @@ const Login = () => {
     const email=useRef(null)
     const password=useRef(null)
     const name=useRef(null)
+    const navigate=useNavigate()
+
     const handleButtonClick=()=>{
         // validate the form data
 
         const checkMessage=checkValidData(email.current.value,password.current.value)
         setErrorMessage(checkMessage)
+
+        if(checkMessage) return
+        if(!isSignInForm)
+        {
+            createUserWithEmailAndPassword(auth,email.current.value,password.current.value)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                console.log(user)
+                navigate('/browse')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setErrorMessage(errorCode+' - '+errorMessage)
+            });
+        }
+        else
+        {
+            signInWithEmailAndPassword(auth,email.current.value,password.current.value)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // console.log(user)
+                navigate('/browse')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setErrorMessage(errorCode+' - '+errorMessage)
+            });
+        }
+        email.current.value=''
+        password.current.value=''
+        if(name.current)
+            name.current.value=''
     }
     
     return (
@@ -46,7 +87,9 @@ const Login = () => {
                     <p className="py-4">
                         { isSignInForm? 'New to Netflix?':'Already have an account?' }
                         <span className='ml-2 cursor-pointer'
-                         onClick={()=>setIsSignInForm((prev)=>!prev)}>Sign up now</span>
+                         onClick={()=>setIsSignInForm((prev)=>!prev)}>{
+                            isSignInForm ? 'Sign Up' : 'Sign In Now'
+                        }</span>
                     </p>
                 </form>
             </div>
