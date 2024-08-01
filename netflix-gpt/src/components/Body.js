@@ -12,9 +12,11 @@ const Body = () => {
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
           // This will be executed when the user Sign In/Sign Up
+          // console.log(user)
           if (user) {
-            const {uid,email,displayName} = user
-            dispatch(addUser({uid:uid,email:email,username:displayName}))
+            // console.log(user)
+            const {uid,email,displayName,photoURL} = user
+            dispatch(addUser({uid:uid,email:email,displayName:displayName, photoURL:photoURL}))
             navigate('/browse')
         } else {
             dispatch(removeUser())
