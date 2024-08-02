@@ -95,12 +95,12 @@ const CommentsList=({comments})=>{
   return (
     <>
       {
-        comments.map((comment,index)=>(
+        comments.map((item,index)=>(
           <div key={index}>
-            <Comment data={comment}/>
+            <Comment data={item}/>
             <div className='pl-5 ml-5 border border-l-black'>
               {
-                comment.replies && <CommentsList comments={comment.replies}/>
+                item.replies && <CommentsList comments={item.replies}/>
               }
             </div>
           </div>

@@ -8,6 +8,7 @@ import { faker } from '@faker-js/faker'
 const LiveChat = () => {
   const dispatch=useDispatch()
   const chat=useSelector(store=>store.chat.message)
+  console.log(chat)
   const [liveMessage,setMessage]=useState('')
   useEffect(()=>{
     
@@ -20,7 +21,7 @@ const LiveChat = () => {
     },1400)
     // console.log(chat)
     return ()=> clearInterval(i)
-  })
+  },[])
   return (
       // flex-col-reverse to make the chat come from bottom
     <>
@@ -37,6 +38,7 @@ const LiveChat = () => {
       <form onSubmit={(e)=>{
         e.preventDefault()
         dispatch(addMessage({
+          id:nanoid(),
           name:'Nandu',
           message:liveMessage
         }))

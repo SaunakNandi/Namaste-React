@@ -9,7 +9,7 @@ import {YOUTUBE_SEARCH_API} from '../utlils/constants'
 import { cacheResults } from '../utlils/searchSlice'
 
 
-// I
+
 
 const Head = () => 
 {
@@ -38,7 +38,7 @@ const Head = () =>
             }
             else
                 getSearchSuggestions()
-        },200)
+        },250)
 
         return ()=>clearTimeout(timer)  // called when component is unmounted
     },[searchQuery])
@@ -73,7 +73,7 @@ const Head = () =>
             onClick={()=>toggleMenuHandler()}/>
             <img src={youtube} className="h-[3vh] mx-4" alt="youtube" />
         </div>
-        <div className="flex col-span-10 text-center h[2vh] justify-center">
+        <div className="flex col-span-10 text-center h-[2vh] justify-center">
             <div className="w-1/4 border border-gray-500 border-r-0 rounded-l-xl">
                 <input type="text" className='w-full border rounded-l-xl gray-400 p-1 outline-none'
                 placeholder='Search'

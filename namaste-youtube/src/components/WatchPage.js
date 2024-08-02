@@ -14,9 +14,10 @@ const WatchPage = () => {
         dispatch(closeMenu())
     })
     return (
-        <div className='felx flex-col w-full'>
+        <div className='w-full'>
             <div className='px-5 flex w-full'>
                 <div className="">
+                    {/* video player */}
                     <iframe width="1262" height="600" 
                     src={`https://www.youtube.com/embed/${searchParams.get("v")}`}
                     title="YouTube video player" 
