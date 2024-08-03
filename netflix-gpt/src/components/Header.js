@@ -11,21 +11,27 @@ const Header = () => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
   const user=useSelector(store=>store.user)
-    useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-          // This will be executed when the user Sign In/Sign Up
+
+  // It may happen that our header loads multiple times and each time it loads useEffect will be called and when the useEffect will be called onAuthStateChanged will get triggered. But the problem is when the component will get unmount, onAuthStateChanged will still be there. So what I want is, when the component get unmount I will unsubscribe onAuthStateChanged
+
+  useEffect(()=>{
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        // This will be executed when the user Sign In/Sign Up
+        // console.log(user)
+        if (user) 
+        {
           // console.log(user)
-          if (user) {
-            // console.log(user)
-            const {uid,email,displayName,photoURL} = user
-            dispatch(addUser({uid:uid,email:email,displayName:displayName, photoURL:photoURL}))
-            navigate('/browse')
+          const {uid,email,displayName,photoURL} = user
+          dispatch(addUser({uid:uid,email:email,displayName:displayName, photoURL:photoURL}))
+          navigate('/browse')
         } else {
-            dispatch(removeUser())
-            navigate('/')
-          }
-        });
-      },[])
+          dispatch(removeUser())
+          navigate('/')
+        }
+      });
+
+      return ()=> unsubscribe()
+    },[])
   const handleSignOut=()=>{
     signOut(auth).then(() => {
       dispatch(removeUser())
@@ -44,7 +50,7 @@ const Header = () => {
           user && (
             <div className="flex">
           {/* {console.log(user && user.photoURL)} */}
-          <img className='w-12 h-12' src={user?.photoURL} alt="ser" />
+          <img className='w-12 h-12 mt-2' src={user?.photoURL} alt="ser" />
           <button onClick={handleSignOut} className='font-bold text-white m-1'>
             { (pathname!=='/') && <span>(Sign Out)</span>}
           </button>
