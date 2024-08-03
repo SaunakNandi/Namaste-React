@@ -3,8 +3,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUser } from '../store/userSlice';
-import { addUser } from '../store/userSlice'
+import { addUser,removeUser } from '../store/userSlice';
 
 const Header = () => {
   const {pathname}=useLocation()
@@ -12,7 +11,21 @@ const Header = () => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
   const user=useSelector(store=>store.user)
-  
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+          // This will be executed when the user Sign In/Sign Up
+          // console.log(user)
+          if (user) {
+            // console.log(user)
+            const {uid,email,displayName,photoURL} = user
+            dispatch(addUser({uid:uid,email:email,displayName:displayName, photoURL:photoURL}))
+            navigate('/browse')
+        } else {
+            dispatch(removeUser())
+            navigate('/')
+          }
+        });
+      },[])
   const handleSignOut=()=>{
     signOut(auth).then(() => {
       dispatch(removeUser())
