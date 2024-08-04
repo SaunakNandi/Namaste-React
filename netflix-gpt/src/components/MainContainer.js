@@ -8,13 +8,12 @@ export const MainContainer = () => {
     if(!movies) return
     
     // console.log(movies)
-    const mainMovie=movies[1]
-        // console.log(mainMovie)
+    const mainMovie=movies[2]
     const {original_title,overview,id}=mainMovie
     
 
   return (
-    <div>
+    <div className='min-h-full'>
         <VideoTitle title={original_title} overview={overview}/>
         <VideoBackground movieId={id}/>
     </div>
