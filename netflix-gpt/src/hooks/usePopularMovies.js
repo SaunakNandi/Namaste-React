@@ -11,7 +11,7 @@ const usePopularMovies = () => {
     .catch(err => console.error(err));
     // console.log(data);
     dispatch(addPopularMovies(data.results))
-  }
+  } 
   useEffect(()=>{
       getPopularMovies()
   },[])

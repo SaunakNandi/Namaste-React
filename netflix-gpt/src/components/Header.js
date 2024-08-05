@@ -4,6 +4,7 @@ import { auth } from '../utils/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser,removeUser } from '../store/userSlice';
+import { toggleGptSearchView } from '../store/gptSlice';
 
 const Header = () => {
   const {pathname}=useLocation()
@@ -11,6 +12,10 @@ const Header = () => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
   const user=useSelector(store=>store.user)
+
+  const handleGptSearchClick=()=>{
+    dispatch(toggleGptSearchView())
+  }
 
   // It may happen that our header loads multiple times and each time it loads useEffect will be called and when the useEffect will be called onAuthStateChanged will get triggered. But the problem is when the component will get unmount, onAuthStateChanged will still be there. So what I want is, when the component get unmount I will unsubscribe onAuthStateChanged
 
@@ -49,13 +54,15 @@ const Header = () => {
         src={'./Netflix_Logo_PMS.png'} alt="Netflix" />
         {
           user && (
-            <div className="flex">
-          {/* {console.log(user && user.photoURL)} */}
-          <img className='w-12 h-12 mt-2' src={user?.photoURL} alt="ser" />
-          <button onClick={handleSignOut} className='font-bold text-white m-1'>
-            { (pathname!=='/') && <span>(Sign Out)</span>}
-          </button>
-        </div>)
+            <div className="flex p-2">
+              <button className="py-2 px-4 m-2 mx-4 bg-purple-500 text-white rounded-full"
+              onClick={handleGptSearchClick}>GPT Search</button>
+              <img className='w-12 h-12 mt-2' src={user?.photoURL} alt="ser" />
+              <button onClick={handleSignOut} className='font-bold text-white m-1'>
+                { (pathname!=='/') && <span>(Sign Out)</span>}
+              </button>
+            </div>
+          )
         }
     </div>
   )

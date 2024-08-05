@@ -8,7 +8,7 @@ export const MainContainer = () => {
     if(!movies) return
     
     // console.log(movies)
-    const mainMovie=movies[2]
+    const mainMovie=movies[17]
     const {original_title,overview,id}=mainMovie
     
 
