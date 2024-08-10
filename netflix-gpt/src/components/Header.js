@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser,removeUser } from '../store/userSlice';
 import { toggleGptSearchView } from '../store/gptSlice';
+import { SUPPORTED_LANGUAGES } from '../utils/constants';
+import { changeLanguage } from '../store/configSlice';
 
 const Header = () => {
   const {pathname}=useLocation()
@@ -47,6 +49,10 @@ const Header = () => {
     });
   }
   
+  const  handleLanguageChange=(e)=>{
+    dispatch(changeLanguage(e.target.value))
+  }
+  const showGptSearch=useSelector((store)=>store.gpt.showSearch)
   return (
     <div className='w-full absolute px-8 py-2 bg-gradient-to-b from-blue-950 flex justify-between z-10
     '>
@@ -55,8 +61,23 @@ const Header = () => {
         {
           user && (
             <div className="flex p-2">
+              {
+                showGptSearch && (
+                <select className='p-2 bg-gray-800 text-white m-2'
+                onChange={handleLanguageChange}>
+                  {
+                    SUPPORTED_LANGUAGES.map(lang=> (
+                    <option key={lang.identifier}
+                      value={lang.identifier}>{lang.name}</option>
+                    ))
+                  }
+                </select>
+                )
+              }
               <button className="py-2 px-4 m-2 mx-4 bg-purple-500 text-white rounded-full"
-              onClick={handleGptSearchClick}>GPT Search</button>
+              onClick={handleGptSearchClick}>{
+                showGptSearch? 'GPT Search':'HomePage'
+              }</button>
               <img className='w-12 h-12 mt-2' src={user?.photoURL} alt="ser" />
               <button onClick={handleSignOut} className='font-bold text-white m-1'>
                 { (pathname!=='/') && <span>(Sign Out)</span>}

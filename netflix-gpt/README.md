@@ -20,3 +20,7 @@
 
 - Netflix GPT
     -search bar with movie suggestion implementation
+
+
+New thing that can be implemented
+    - Make you site multilingual
